@@ -4,12 +4,32 @@
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
 	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/beans"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
-	
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean p:password="board" p:username="board1"
+		p:jdbcUrl="jdbc:mysql://localhost:3306/project?serverTimezone=UTC"
+		p:driverClassName="com.mysql.cj.jdbc.Driver"
+		class="com.zaxxer.hikari.HikariDataSource" id="dataSource" />
 	
+	<!-- JdbcTemplate 등록 -->
+	<bean class="org.springframework.jdbc.core.JdbcTemplate"
+		  id="jdbcTemplate" 
+		  p:dataSource-ref="dataSource" />
+
+	<!-- SqlSessionFactory -->
+	<bean class="org.mybatis.spring.SqlSessionFactoryBean"
+		  id="sqlSessionFactory" 
+		  p:dataSource-ref="dataSource"
+		  p:mapperLocations="WEB-INF/mybatis/mapper/*.xml" />
+	<bean class="org.mybatis.spring.SqlSessionTemplate"
+		  id="sqlSession">
+	<constructor-arg ref="sqlSessionFactory" />
+
+	</bean>
+
 </beans>
