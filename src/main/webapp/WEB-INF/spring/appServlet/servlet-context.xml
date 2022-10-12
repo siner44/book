@@ -22,6 +22,10 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="kr.com.book" />
+	<context:component-scan base-package="kr.com.book.service" />
+	<context:component-scan base-package="kr.com.book.dao" />
+	<context:component-scan base-package="kr.com.book.domain" />
+	<context:component-scan base-package="kr.com.book.controller" />
 	
 	
 	
