@@ -18,4 +18,14 @@
 	                 		  , #{viewcnt}  )
    
    </insert>
+   <select id="list" resultType="kr.com.book.domain.Board">
+		SELECT   bno
+			   , title
+			   , content
+			   , writer
+			   , regdate
+			   , viewcnt
+		  FROM board
+		  ORDER BY BNO DESC
+	</select>
 </mapper>
