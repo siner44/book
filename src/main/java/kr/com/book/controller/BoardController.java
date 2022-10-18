@@ -46,4 +46,14 @@ public class BoardController {
 		
 	}
 	
+	// 글 조회
+	@RequestMapping(value = "/read", method = RequestMethod.GET)
+	public String read(Board b, Model model) throws Exception{
+		logger.info("read");
+		
+		model.addAttribute("read", boardService.read(b.getBno()));
+		
+		return "board/read";
+	}
+	
 }

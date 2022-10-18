@@ -27,4 +27,9 @@ public class BoardService {
 		return dao.list();
 	}
 	
+	public Board read(int bno) {
+		dao = template.getMapper(BoardDAO.class);
+		return dao.read(bno);
+	}
+	
 }

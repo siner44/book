@@ -8,4 +8,6 @@ public interface BoardDAO {
 	public int create(Board b);
 	
 	public List<Board> list();
+	
+	public Board read(int bno);
 }

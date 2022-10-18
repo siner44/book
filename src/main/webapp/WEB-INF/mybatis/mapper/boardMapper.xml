@@ -28,4 +28,15 @@
 		  FROM board
 		  ORDER BY BNO DESC
 	</select>
+	
+	<select id="read" parameterType="int" resultType="kr.com.book.domain.Board">
+		SELECT	bno
+			   , title
+			   , content
+			   , writer
+			   , regdate
+			   , viewcnt
+		 FROM board
+		 WHERE bno = #{bno}
+	</select>
 </mapper>
