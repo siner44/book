@@ -18,6 +18,7 @@
 	                 		  , #{viewcnt}  )
    
    </insert>
+   
    <select id="list" resultType="kr.com.book.domain.Board">
 		SELECT   bno
 			   , title
@@ -39,4 +40,17 @@
 		 FROM board
 		 WHERE bno = #{bno}
 	</select>
+	
+	<update id="update" parameterType="kr.com.book.domain.Board">
+		UPDATE board
+		   SET title    =   #{title},
+		   	   content  =   #{content}
+		 WHERE BNO = #{bno} 
+	</update>
+	
+	<delete id="delete" parameterType="int">
+		DELETE 
+		FROM board
+		WHERE BNO = #{bno}
+	</delete>
 </mapper>

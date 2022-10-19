@@ -10,4 +10,8 @@ public interface BoardDAO {
 	public List<Board> list();
 	
 	public Board read(int bno);
+	
+	public void update(Board b);
+	
+	public void delete(int bno);
 }
