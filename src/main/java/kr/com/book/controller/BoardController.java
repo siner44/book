@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.com.book.domain.Board;
+import kr.com.book.domain.BoardListPageView;
+import kr.com.book.domain.SearchParams;
 import kr.com.book.service.BoardService;
 
 @Controller
@@ -36,11 +38,17 @@ public class BoardController {
 
 	// 글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model) throws Exception {
+	public String list(Model model, SearchParams sp) throws Exception {
 		logger.info("list");
 
-		model.addAttribute("list", boardService.list());
-
+		model.addAttribute("list", boardService.list(sp));
+		
+		BoardListPageView pv = new BoardListPageView();
+		pv.setCri(sp);
+		pv.setTotalCount(boardService.listCount());
+		
+		model.addAttribute("pv", pv);
+		
 		return "board/list";
 
 	}

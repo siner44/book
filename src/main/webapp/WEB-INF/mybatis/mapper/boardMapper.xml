@@ -27,7 +27,15 @@
 			   , regdate
 			   , viewcnt
 		  FROM board
-		  ORDER BY BNO DESC
+		  ORDER BY BNO DESC limit #{index}, #{count}
+	</select>
+	
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(BNO)
+		  FROM board
+		 WHERE BNO > 0
+	]]>
 	</select>
 	
 	<select id="read" parameterType="int" resultType="kr.com.book.domain.Board">
