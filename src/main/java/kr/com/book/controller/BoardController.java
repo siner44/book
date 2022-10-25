@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.com.book.domain.Board;
 import kr.com.book.domain.BoardListPageView;
-import kr.com.book.domain.SearchParams;
+import kr.com.book.domain.Page;
+import kr.com.book.domain.Search;
 import kr.com.book.service.BoardService;
 
 @Controller
@@ -38,14 +40,14 @@ public class BoardController {
 
 	// 글 목록
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Model model, SearchParams sp) throws Exception {
+	public String list(Model model,@ModelAttribute("s") Search s) throws Exception {
 		logger.info("list");
 
-		model.addAttribute("list", boardService.list(sp));
+		model.addAttribute("list", boardService.list(s));
 		
 		BoardListPageView pv = new BoardListPageView();
-		pv.setCri(sp);
-		pv.setTotalCount(boardService.listCount());
+		pv.setCri(s);
+		pv.setTotalCount(boardService.listCount(s));
 		
 		model.addAttribute("pv", pv);
 		

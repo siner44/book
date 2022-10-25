@@ -19,7 +19,7 @@
    
    </insert>
    
-   <select id="list" resultType="kr.com.book.domain.Board">
+   <select id="list" parameterType="kr.com.book.domain.search" resultType="kr.com.book.domain.Board">
 		SELECT   bno
 			   , title
 			   , content
@@ -27,16 +27,26 @@
 			   , regdate
 			   , viewcnt
 		  FROM board
-		  ORDER BY BNO DESC limit #{index}, #{count}
+		  <include refid="search"></include>
+		  ORDER BY BNO DESC limit #{rowStart}, #{rowEnd}
 	</select>
 	
-	<select id="listCount" resultType="int">
-	<![CDATA[
+	<select id="listCount" parameterType="kr.com.book.domain.search" resultType="int">
 		SELECT COUNT(BNO)
 		  FROM board
-		 WHERE BNO > 0
-	]]>
+		 WHERE 
+		 <include refid="search"></include>
+		 BNO > 0
 	</select>
+	
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE '%' || #{keyword} || '%'</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE '%' || #{keyword} || '%') or (CONTENT LIKE '%' || #{keyword} || '%')</if>
+		</if>
+	</sql>
 	
 	<select id="read" parameterType="int" resultType="kr.com.book.domain.Board">
 		SELECT	bno

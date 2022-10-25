@@ -1,5 +1,8 @@
 package kr.com.book.domain;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -11,10 +14,10 @@ public class BoardListPageView {
 	private boolean prev;
 	private boolean next;
 	private int displayPageNum = 10;
-	private SearchParams sp;
+	private Page p;
 	
-	public void setCri(SearchParams sp) {
-		this.sp = sp;
+	public void setCri(Page p) {
+		this.p = p;
 	}
 	
 	public void setTotalCount(int totalCount) {
@@ -46,30 +49,55 @@ public class BoardListPageView {
 		return displayPageNum;
 	}
 	
-	public SearchParams getSp() {
-		return sp;
+	public Page getP() {
+		return p;
 	}
 	 
 	private void calcData() {
-		endPage = (int) (Math.ceil(sp.getPage() / (double)displayPageNum) * displayPageNum);
+		endPage = (int) (Math.ceil(p.getPage() / (double)displayPageNum) * displayPageNum);
 		startPage = (endPage - displayPageNum) + 1;
 	  
-		int tempEndPage = (int) (Math.ceil(totalCount / (double)sp.getPerPageNum()));
+		int tempEndPage = (int) (Math.ceil(totalCount / (double)p.getPerPageNum()));
 		if (endPage > tempEndPage) {
 			endPage = tempEndPage;
 		}
 		prev = startPage == 1 ? false : true;
-		next = endPage * sp.getPerPageNum() >= totalCount ? false : true;
+		next = endPage * p.getPerPageNum() >= totalCount ? false : true;
 	}
 	
 	public String makeQuery(int page) {
 		UriComponents uriComponents =
 		UriComponentsBuilder.newInstance()
 						    .queryParam("page", page)
-							.queryParam("perPageNum", sp.getPerPageNum())
+							.queryParam("perPageNum", p.getPerPageNum())
 							.build();
 		   
 		return uriComponents.toUriString();
+	}
+	
+	public String makeSearch(int page)
+	{
+	  
+	 UriComponents uriComponents =
+	            UriComponentsBuilder.newInstance()
+	            .queryParam("page", page)
+	            .queryParam("perPageNum", p.getPerPageNum())
+	            .queryParam("searchType", ((Search)p).getSearchType())
+	            .queryParam("keyword", encoding(((Search)p).getKeyword()))
+	            .build(); 
+	    return uriComponents.toUriString();  
+	}
+
+	private String encoding(String keyword) {
+		if(keyword == null || keyword.trim().length() == 0) { 
+			return "";
+		}
+		 
+		try {
+			return URLEncoder.encode(keyword, "UTF-8");
+		} catch(UnsupportedEncodingException e) { 
+			return ""; 
+		}
 	}
 
 }

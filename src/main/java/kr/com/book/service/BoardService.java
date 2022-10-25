@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import kr.com.book.dao.BoardDAO;
 import kr.com.book.domain.Board;
-import kr.com.book.domain.SearchParams;
+import kr.com.book.domain.Page;
+import kr.com.book.domain.Search;
 
 @Service
 public class BoardService {
@@ -23,14 +24,14 @@ public class BoardService {
 		dao.create(b);
 	}
 
-	public List<Board> list(SearchParams sp) {
+	public List<Board> list(Search s) {
 		dao = template.getMapper(BoardDAO.class);
-		return dao.list(sp);
+		return dao.list(s);
 	}
 	
-	public int listCount() {
+	public int listCount(Search s) {
 		dao = template.getMapper(BoardDAO.class);
-		return dao.listCount();
+		return dao.listCount(s);
 	}
 
 	public Board read(int bno) {

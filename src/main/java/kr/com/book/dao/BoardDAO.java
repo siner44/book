@@ -3,14 +3,15 @@ package kr.com.book.dao;
 import java.util.List;
 
 import kr.com.book.domain.Board;
-import kr.com.book.domain.SearchParams;
+import kr.com.book.domain.Page;
+import kr.com.book.domain.Search;
 
 public interface BoardDAO {
 	public int create(Board b);
 	
-	public List<Board> list(SearchParams sp);
+	public List<Board> list(Search s);
 	
-	public int listCount();
+	public int listCount(Search s);
 	
 	public Board read(int bno);
 	

@@ -1,13 +1,13 @@
 package kr.com.book.domain;
 
-public class SearchParams {
+public class Page {
 
 	private int page;
 	private int perPageNum;
 	private int rowStart;
 	private int rowEnd;
 
-	public SearchParams() {
+	public Page() {
 		this.page = 1;
 		this.perPageNum = 10;
 	}
