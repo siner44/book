@@ -23,6 +23,15 @@
 				formObj.attr("method", "post");
 				formObj.submit();
 			})
+			
+			$(".cancel_btn").on("click", function(){
+			event.preventDefault();
+			location.href = "/board/readView?bno=${update.bno}"
+			   + "&page=${s.page}"
+			   + "&perPageNum=${s.perPageNum}"
+			   + "&searchType=${s.searchType}"
+			   + "&keyword=${s.keyword}";
+	})
 		})
 			
 		function fn_valiChk(){

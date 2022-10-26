@@ -35,6 +35,13 @@
 				
 				location.href = "/board/list";
 			})
+			
+			$(".list_btn").on("click", function(){
+
+				location.href = "/board/list?page=${s.page}"
+				+"&perPageNum=${s.perPageNum}"
+				+"&searchType=${s.searchType}&keyword=${s.keyword}";
+			})
 		})
 	</script>
 	
@@ -52,6 +59,13 @@
 			<hr />
 			
 			<section id="container">
+				<form name="readForm" role="form" method="post">
+ 					<input type="hidden" id="bno" name="bno" value="${read.bno}" />
+  					<input type="hidden" id="page" name="page" value="${s.page}"> 
+  					<input type="hidden" id="perPageNum" name="perPageNum" value="${s.perPageNum}"> 
+  					<input type="hidden" id="searchType" name="searchType" value="${s.searchType}"> 
+  					<input type="hidden" id="keyword" name="keyword" value="${s.keyword}"> 
+				</form>
 				<form name="readForm" role="form" method="post">
 					<input type="hidden" id="bno" name="bno" value="${read.bno}" />
 				</form>
