@@ -1,5 +1,7 @@
 package kr.com.book.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.com.book.domain.Board;
 import kr.com.book.domain.BoardListPageView;
-import kr.com.book.domain.Page;
+import kr.com.book.domain.Reply;
 import kr.com.book.domain.Search;
 import kr.com.book.service.BoardService;
+import kr.com.book.service.ReplyService;
 
 @Controller
 @RequestMapping("/board/*")
@@ -24,6 +27,10 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private ReplyService replyService;
+	
 
 	// 글 작성 화면
 	@RequestMapping(value = "/board/createView", method = RequestMethod.GET)
@@ -63,6 +70,8 @@ public class BoardController {
 
 		model.addAttribute("read", boardService.read(b.getBno()));
 		model.addAttribute("s", s);
+		
+		List<Reply> replyList = replyService.readReply(b.getBno());
 		
 		return "board/read";
 	}

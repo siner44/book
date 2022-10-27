@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+
+	<select id="read" parameterType="int" resultType="kr.com.book.domain.Reply">
+		SELECT	rno
+			   , content
+			   , writer
+			   , regdate
+		 FROM reply
+		 WHERE bno = #{bno}
+	</select>
+</mapper>
