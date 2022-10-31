@@ -118,20 +118,73 @@ public class BoardController {
 	}
 	
 	// 댓글 작성
-	//댓글 작성
-		@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
-		public String replyWrite(Reply r, Search s, RedirectAttributes rttr) throws Exception {
-			logger.info("reply Write");
+	@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
+	public String replyWrite(Reply r, Search s, RedirectAttributes rttr) throws Exception {
+		logger.info("reply Write");
 			
-			replyService.writeReply(r);
+		replyService.writeReply(r);
 			
-			rttr.addAttribute("bno", r.getBno());
-			rttr.addAttribute("page", s.getPage());
-			rttr.addAttribute("perPageNum", s.getPerPageNum());
-			rttr.addAttribute("searchType", s.getSearchType());
-			rttr.addAttribute("keyword", s.getKeyword());
+		rttr.addAttribute("bno", r.getBno());
+		rttr.addAttribute("page", s.getPage());
+		rttr.addAttribute("perPageNum", s.getPerPageNum());
+		rttr.addAttribute("searchType", s.getSearchType());
+		rttr.addAttribute("keyword", s.getKeyword());
 			
-			return "redirect:/board/read";
-		}
+		return "redirect:/board/read";
+	}
+	
+	//댓글 수정 GET
+	@RequestMapping(value="/replyUpdateView", method = RequestMethod.GET)
+	public String replyUpdateView(Reply r, Search s, Model model) throws Exception {
+		logger.info("reply Write");
+			
+		model.addAttribute("replyUpdate", replyService.selectReply(r.getRno()));
+		model.addAttribute("s", s);
+			
+		return "board/replyUpdateView";
+	}
+		
+	//댓글 수정 POST
+	@RequestMapping(value="/replyUpdate", method = RequestMethod.POST)
+	public String replyUpdate(Reply r, Search s, RedirectAttributes rttr) throws Exception {
+		logger.info("reply Write");
+		
+		replyService.updateReply(r);
+		
+		rttr.addAttribute("bno", r.getBno());
+		rttr.addAttribute("page", s.getPage());
+		rttr.addAttribute("perPageNum", s.getPerPageNum());
+		rttr.addAttribute("searchType", s.getSearchType());
+		rttr.addAttribute("keyword", s.getKeyword());
+		
+		return "redirect:/board/read";
+	}
+	
+	//댓글 삭제 GET
+	@RequestMapping(value="/replyDeleteView", method = RequestMethod.GET)
+	public String replyDeleteView(Reply r, Search s, Model model) throws Exception {
+		logger.info("reply Write");
+		
+		model.addAttribute("replyDelete", replyService.selectReply(r.getRno()));
+		model.addAttribute("s", s);
+		
+			return "board/replyDeleteView";
+	}
+	
+	//댓글 삭제
+	@RequestMapping(value="/replyDelete", method = RequestMethod.POST)
+	public String replyDelete(Reply r, Search s, RedirectAttributes rttr) throws Exception {
+		logger.info("reply Write");
+		
+		replyService.deleteReply(r);
+		
+		rttr.addAttribute("bno", r.getBno());
+		rttr.addAttribute("page", s.getPage());
+		rttr.addAttribute("perPageNum", s.getPerPageNum());
+		rttr.addAttribute("searchType", s.getSearchType());
+		rttr.addAttribute("keyword", s.getKeyword());
+		
+		return "redirect:/board/read";
+	}
 
 }

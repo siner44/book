@@ -5,7 +5,7 @@
 <mapper namespace="replyMapper">
 
 	<select id="read" parameterType="int" resultType="kr.com.book.domain.Reply">
-		SELECT	rno
+		 SELECT	rno
 			   , content
 			   , writer
 			   , regdate
@@ -13,16 +13,35 @@
 		 WHERE bno = #{bno}
 	</select>
 	
-	<insert parameterType="kr.com.book.domain.Board" id="writeReply">
-	   INSERT INTO reply(    rno
+	<insert id="writeReply">
+	    INSERT INTO reply(    rno
 	   						, bno
 			   				, content
 			   				, writer  )
-	                 VALUES(    #{rno}
-	                 		  , #{bno} 
-	                 		  , #{content}
-	                 		  , #{writer}  )
-   
-   </insert>
+	                VALUES(    #{rno}
+	                 	  	, #{bno} 
+	                 	  	, #{content}
+	                 	  	, #{writer}  )
+	</insert>
+
+	<update parameterType="kr.com.book.domain.Reply" id="updateReply">
+		UPDATE reply SET content = #{content}
+						, where rno = #{rno}
+	</update>
+
+	<delete parameterType="kr.com.book.domain.Reply" id="deleteReply">
+		DELETE FROM reply where and rno = #{rno} 
+	</delete>
+	
+	<select id="selectReply" resultType="kr.com.book.domain.Reply">
+		SELECT
+				rno
+			  , bno
+			  , content
+			  , writer
+			  , regdate
+		  FROM reply
+		 WHERE rno = #{rno}
+	</select>
 	
 </mapper>

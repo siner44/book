@@ -27,4 +27,22 @@ public class ReplyService {
 		dao.writeReply(r);
 	}
 	
+	public void updateReply(Reply r) {
+		
+		dao = template.getMapper(ReplyDAO.class);
+		dao.updateReply(r);
+	}
+	
+	public void deleteReply(Reply r) {
+		
+		dao = template.getMapper(ReplyDAO.class);
+		dao.deleteReply(r);
+	}
+	
+	public Reply selectReply(int rno) {
+	
+		dao = template.getMapper(ReplyDAO.class);
+		return dao.selectReply(rno);
+	}
+
 }
