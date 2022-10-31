@@ -116,5 +116,22 @@ public class BoardController {
 
 		return "redirect:/board/list";
 	}
+	
+	// 댓글 작성
+	//댓글 작성
+		@RequestMapping(value="/replyWrite", method = RequestMethod.POST)
+		public String replyWrite(Reply r, Search s, RedirectAttributes rttr) throws Exception {
+			logger.info("reply Write");
+			
+			replyService.writeReply(r);
+			
+			rttr.addAttribute("bno", r.getBno());
+			rttr.addAttribute("page", s.getPage());
+			rttr.addAttribute("perPageNum", s.getPerPageNum());
+			rttr.addAttribute("searchType", s.getSearchType());
+			rttr.addAttribute("keyword", s.getKeyword());
+			
+			return "redirect:/board/read";
+		}
 
 }

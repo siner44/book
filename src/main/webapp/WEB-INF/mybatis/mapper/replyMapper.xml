@@ -12,4 +12,17 @@
 		 FROM reply
 		 WHERE bno = #{bno}
 	</select>
+	
+	<insert parameterType="kr.com.book.domain.Board" id="writeReply">
+	   INSERT INTO reply(    rno
+	   						, bno
+			   				, content
+			   				, writer  )
+	                 VALUES(    #{rno}
+	                 		  , #{bno} 
+	                 		  , #{content}
+	                 		  , #{writer}  )
+   
+   </insert>
+	
 </mapper>
