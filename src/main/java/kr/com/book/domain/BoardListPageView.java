@@ -16,7 +16,7 @@ public class BoardListPageView {
 	private int displayPageNum = 10;
 	private Page p;
 	
-	public void setCri(Page p) {
+	public void setP(Page p) {
 		this.p = p;
 	}
 	

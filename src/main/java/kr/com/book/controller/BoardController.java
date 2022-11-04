@@ -54,7 +54,7 @@ public class BoardController {
 		model.addAttribute("list", boardService.list(s));
 		
 		BoardListPageView pv = new BoardListPageView();
-		pv.setCri(s);
+		pv.setP(s);
 		pv.setTotalCount(boardService.listCount(s));
 		
 		model.addAttribute("pv", pv);
