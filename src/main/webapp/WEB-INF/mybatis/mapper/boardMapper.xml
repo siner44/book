@@ -19,7 +19,7 @@
    
    </insert>
    
-   <select id="list" parameterType="kr.com.book.domain.search" resultType="kr.com.book.domain.Board">
+   <select id="list" parameterType="kr.com.book.domain.Search" resultType="kr.com.book.domain.Board">
 		SELECT   bno
 			   , title
 			   , content
@@ -31,7 +31,7 @@
 		  ORDER BY BNO DESC limit #{rowStart}, #{rowEnd}
 	</select>
 	
-	<select id="listCount" parameterType="kr.com.book.domain.search" resultType="int">
+	<select id="listCount" parameterType="kr.com.book.domain.Search" resultType="int">
 		SELECT COUNT(BNO)
 		  FROM board
 		 WHERE 

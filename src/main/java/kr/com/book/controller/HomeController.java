@@ -1,4 +1,4 @@
-package kr.com.book;
+package kr.com.book.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

@@ -2,11 +2,12 @@ package kr.com.book.service;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import kr.com.book.dao.BoardDAO;
 import kr.com.book.dao.MemberDAO;
 import kr.com.book.domain.Member;
 
+@Service
 public class MemberService {
 
 	MemberDAO dao;
@@ -18,5 +19,11 @@ public class MemberService {
 		dao = template.getMapper(MemberDAO.class);
 		dao.register(m);
 	}
+	
+	public Member login(Member m) {
+		dao = template.getMapper(MemberDAO.class);
+		return dao.login(m);
+	}
+	
 	
 }

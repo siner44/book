@@ -4,10 +4,12 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import kr.com.book.dao.ReplyDAO;
 import kr.com.book.domain.Reply;
 
+@Service
 public class ReplyService {
 
 	ReplyDAO dao;

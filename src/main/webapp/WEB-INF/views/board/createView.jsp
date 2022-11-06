@@ -47,25 +47,30 @@
 				<form role="form" method="post" action="/board/create">
 					<table>
 						<tbody>
-							<tr>
-								<td>
-									<label for="title">제목</label><input type="text" id="title" name="title" class="chk" title="제목 입력"/>
-								</td>
-							</tr>	
-							<tr>
-								<td>
-									<label for="content">내용</label><textarea id="content" name="content" class="chk" title="내용 입력" ></textarea>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									<label for="writer">작성자</label><input type="text" id="writer" name="writer" class="chk" title="작성자 입력" />
-								</td>
-							<tr>
-								<td>						
-									<button type="submit">작성</button>
-								</td>
-							</tr>			
+							<c:if test="${member.userId != null}">
+								<tr>
+									<td>
+										<label for="title">제목</label><input type="text" id="title" name="title" class="chk" title="제목 입력"/>
+									</td>
+								</tr>	
+								<tr>
+									<td>
+										<label for="content">내용</label><textarea id="content" name="content" class="chk" title="내용 입력" ></textarea>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<label for="writer">작성자</label><input type="text" id="writer" name="writer" class="chk" title="작성자 입력" />
+									</td>
+								<tr>
+									<td>						
+										<button type="submit">작성</button>
+									</td>
+								</tr>
+							</c:if>
+							<c:if test="${member.userId == null}">
+								<p>로그인 후에 작성 가능합니다.</p>
+							</c:if>			
 						</tbody>			
 					</table>
 				</form>

@@ -4,6 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
   <mappers>
-    <mapper resource="kr/com/book/dao/BoardDAO.xml"/>
+    <mapper resource="WEB-INF/mybatis/mapper/boardMapper.xml"/>
+    <mapper resource="WEB-INF/mybatis/mapper/replyMapper.xml"/>
+    <mapper resource="WEB-INF/mybatis/mapper/memberMapper.xml"/>
 </mappers>
 </configuration>
