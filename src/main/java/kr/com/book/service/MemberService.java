@@ -25,5 +25,14 @@ public class MemberService {
 		return dao.login(m);
 	}
 	
+	public void memberUpdate(Member m) {
+		dao = template.getMapper(MemberDAO.class);
+		dao.memberUpdate(m);
+	}
+	
+	public void memberDelete(Member m) {
+		dao = template.getMapper(MemberDAO.class);
+		dao.memberDelete(m);
+	}
 	
 }

@@ -23,13 +23,11 @@ public class MemberController {
 	@Inject
 	MemberService service;
 	
-	// 회원가입 get
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
 		logger.info("get register");
 	}
 	
-	// 회원가입 post
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String postRegister(Member m) throws Exception {
 		logger.info("post register");
@@ -64,5 +62,41 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@RequestMapping(value="/memberUpdateView", method = RequestMethod.GET)
+	public String registerUpdateView() throws Exception{
+		
+		return "member/memberUpdateView";
+	}
+
+	@RequestMapping(value="/memberUpdate", method = RequestMethod.POST)
+	public String registerUpdate(Member m, HttpSession session) throws Exception{
+		
+		service.memberUpdate(m);
+		
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value="/memberDeleteView", method = RequestMethod.GET)
+	public String memberDeleteView() throws Exception{
+		return "member/memberDeleteView";
+	}
+		
+	@RequestMapping(value="/memberDelete", method = RequestMethod.POST)
+	public String memberDelete(Member m, HttpSession session, RedirectAttributes rttr) throws Exception{
+		
+		Member member = (Member) session.getAttribute("member");
+		String sessionPass = member.getUserPass();
+		String mPass = m.getUserPass();
+		
+		if(!(sessionPass.equals(mPass))) {
+			rttr.addFlashAttribute("msg", false);
+			return "redirect:/member/memberDeleteView";
+		}
+		service.memberDelete(m);
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 }

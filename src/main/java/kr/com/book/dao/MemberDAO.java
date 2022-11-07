@@ -8,4 +8,8 @@ public interface MemberDAO {
 	
 	public Member login(Member m);
 	
+	public void memberUpdate(Member m);
+	
+	public void memberDelete(Member m);
+	
 }
