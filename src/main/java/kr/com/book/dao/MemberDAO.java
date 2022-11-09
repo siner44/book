@@ -12,4 +12,7 @@ public interface MemberDAO {
 	
 	public void memberDelete(Member m);
 	
+	public int passChk(Member m);
+	
+	
 }

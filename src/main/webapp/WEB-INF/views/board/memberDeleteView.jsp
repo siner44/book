@@ -24,11 +24,26 @@
 					alert("비밀번호를 입력해주세요.");
 					$("#userPass").focus();
 					return false;
-				}	
+				}
+				$.ajax({
+					url : "/member/passChk",
+					type : "POST",
+					dataType : "json",
+					data : $("#delForm").serializeArray(),
+					success: function(data){
+						
+						if(data==0){
+							alert("패스워드가 틀렸습니다.");
+							return;
+						}else{
+							if(confirm("회원탈퇴하시겠습니까?")){
+								$("#delForm").submit();
+							}
+							
+						}
+					}
+				})
 			});
-			
-				
-			
 		})
 	</script>
 	<body>

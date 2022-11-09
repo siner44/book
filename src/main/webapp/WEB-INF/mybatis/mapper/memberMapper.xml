@@ -35,4 +35,13 @@
 		WHERE userid = #{userid}
 		  AND userpass = #{userpass} 
 	</delete>
+	
+	<!-- 패스워드 체크 -->
+	<select id="passChk" resultType="int">
+		SELECT COUNT(*) 
+		FROM board_member
+		WHERE userid = #{userid}
+		  AND userpass = #{userpass}
+	</select>
+	
 </mapper>

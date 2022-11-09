@@ -35,4 +35,9 @@ public class MemberService {
 		dao.memberDelete(m);
 	}
 	
+	public int passChk(Member m) {
+		dao = template.getMapper(MemberDAO.class);
+		return dao.passChk(m);
+	}
+	
 }
