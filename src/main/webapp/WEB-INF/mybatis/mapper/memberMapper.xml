@@ -18,13 +18,13 @@
 		SELECT userid, userpass 
 		  FROM board_member
 		 WHERE userid = #{userid}
-		   AND userpass = #{userpass}   
+		   <!-- AND userpass = #{userpass} -->   
 	</select>
 	
 	<!-- 회원정보 수정 -->
 	<update id="memberUpdate">
 		UPDATE board_member SET 
-		userpass = #{userpass},
+		<!-- userpass = #{userpass}, -->
 		username = #{username}
 		WHERE userid = #{userid}
 	</update>
@@ -33,8 +33,14 @@
 	<delete id="memberDelete">
 		DELETE FROM board_member
 		WHERE userid = #{userid}
-		  AND userpass = #{userpass} 
+		  <!-- AND userpass = #{userpass} --> 
 	</delete>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idChk" resultType="int">
+		SELECT COUNT(*) FROM board_member
+		WHERE userid = #{userid}
+	</select>
 	
 	<!-- 패스워드 체크 -->
 	<select id="passChk" resultType="int">

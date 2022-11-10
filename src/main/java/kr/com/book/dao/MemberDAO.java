@@ -14,5 +14,6 @@ public interface MemberDAO {
 	
 	public int passChk(Member m);
 	
+	public int idChk(Member m);
 	
 }

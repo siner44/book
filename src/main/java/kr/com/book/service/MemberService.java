@@ -40,4 +40,9 @@ public class MemberService {
 		return dao.passChk(m);
 	}
 	
+	public int idChk(Member m) {
+		dao = template.getMapper(MemberDAO.class);
+		return dao.idChk(m);
+	}
+	
 }

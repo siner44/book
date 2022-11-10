@@ -36,11 +36,32 @@
 					$("#userName").focus();
 					return false;
 				}
+				var idChkVal = $("#idChk").val();
+				if(idChkVal == "N"){
+					alert("중복확인 버튼을 눌러주세요.");
+				}else if(idChkVal == "Y"){
+					$("#regForm").submit();
+				}
 			});
 			
-				
-			
 		})
+		
+		function fn_idChk(){
+			$.ajax({
+				url : "/member/idChk",
+				type : "post",
+				dataType : "json",
+				data : {"userId" : $("#userId").val()},
+				success : function(data){
+					if(data == 1){
+						alert("중복된 아이디입니다.");
+					}else if(data == 0){
+						$("#idChk").attr("value", "Y");
+						alert("사용가능한 아이디입니다.");
+					}
+				}
+			})
+		}
 	</script>
 	<body>
 		<section id="container">
@@ -48,6 +69,7 @@
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userId">아이디</label>
 					<input class="form-control" type="text" id="userId" name="userId" />
+					<button class="idChk" type="button" id="idChk" onclick="fn_idChk();" value="N">중복확인</button>
 				</div>
 				<div class="form-group has-feedback">
 					<label class="control-label" for="userPass">패스워드</label>

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,6 +25,9 @@ public class MemberController {
 	@Inject
 	MemberService service;
 	
+	@Inject
+	BCryptPasswordEncoder pe;
+	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
 		logger.info("get register");
@@ -33,23 +37,32 @@ public class MemberController {
 	public String postRegister(Member m) throws Exception {
 		logger.info("post register");
 		
-		service.register(m);
+		int result = service.idChk(m);
+		if(result == 1) {
+			return "/member/register";
+		} else if(result == 0) {
+			String inputPass = m.getUserPass();
+			String pw = pe.encode(inputPass);
+			m.setUserPass(pw);
+			service.register(m);
+		}
 		
-		return null;
+		return "redirect:/";
 	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(Member m, HttpServletRequest req, RedirectAttributes rttr) throws Exception{
+	public String login(Member m, HttpSession session, RedirectAttributes rttr) throws Exception{
 		logger.info("post login");
 		
-		HttpSession session = req.getSession();
+		session.getAttribute("member");
 		Member login = service.login(m);
-		
-		if(login == null) {
+		boolean pwdMatch = pe.matches(m.getUserPass(), login.getUserPass());
+
+		if(login != null && pwdMatch == true) {
+			session.setAttribute("member", login);
+		} else {
 			session.setAttribute("member", null);
 			rttr.addFlashAttribute("msg", false);
-		}else {
-			session.setAttribute("member", login);
 		}
 		
 		return "redirect:/";
@@ -73,9 +86,7 @@ public class MemberController {
 	public String registerUpdate(Member m, HttpSession session) throws Exception{
 		
 		service.memberUpdate(m);
-		
 		session.invalidate();
-		
 		return "redirect:/";
 	}
 	
@@ -87,16 +98,9 @@ public class MemberController {
 	@RequestMapping(value="/memberDelete", method = RequestMethod.POST)
 	public String memberDelete(Member m, HttpSession session, RedirectAttributes rttr) throws Exception{
 		
-		Member member = (Member) session.getAttribute("member");
-		String sessionPass = member.getUserPass();
-		String mPass = m.getUserPass();
-		
-		if(!(sessionPass.equals(mPass))) {
-			rttr.addFlashAttribute("msg", false);
-			return "redirect:/member/memberDeleteView";
-		}
 		service.memberDelete(m);
 		session.invalidate();
+		
 		return "redirect:/";
 	}
 	
@@ -106,6 +110,14 @@ public class MemberController {
 		int result = service.passChk(m);
 		return result;
 	}
+	
 
+	@ResponseBody
+	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	public int idChk(Member m) throws Exception {
+		int result = service.idChk(m);
+		return result;
+	}
+	
 	
 }
