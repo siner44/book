@@ -3,7 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.com.book.dao.BoardDAO">
-   <insert parameterType="kr.com.book.domain.Board" id="create">
+   <insert parameterType="kr.com.book.domain.Board" id="create" useGeneratedKeys="true" keyProperty="bno">
+	   <selectKey keyProperty="bno" resultType="int" order="BEFORE">
+	    	SELECT MP_BOARD_SEQ.NEXTVAL FROM DUAL
+	    </selectKey>
 	   INSERT INTO board(    bno 
 	   					      , title
 	   					      , content 
@@ -71,4 +74,19 @@
 		FROM board
 		WHERE BNO = #{bno}
 	</delete>
+	
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO board_file(
+			bno,
+			filename,
+			editname,
+			filesize
+		)VALUES(
+			#{BNO},
+			#{filename},
+			#{editname},
+			#{filesize}
+		)
+    </insert>
+	
 </mapper>

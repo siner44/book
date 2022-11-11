@@ -1,9 +1,9 @@
 package kr.com.book.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.com.book.domain.Board;
-import kr.com.book.domain.Page;
 import kr.com.book.domain.Search;
 
 public interface BoardDAO {
@@ -19,6 +19,6 @@ public interface BoardDAO {
 	
 	public void delete(int bno);
 	
-	
+	public void insertFile(Map<String, Object> map);
 	
 }

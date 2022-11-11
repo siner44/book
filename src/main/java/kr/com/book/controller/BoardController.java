@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.com.book.domain.Board;
@@ -40,9 +41,9 @@ public class BoardController {
 
 	// 글 작성
 	@RequestMapping(value = "board/create", method = RequestMethod.POST)
-	public String create(Board b) throws Exception {
+	public String create(Board b, MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("create");
-		boardService.create(b);
+		boardService.create(b, mpRequest);
 		return "redirect:/";
 	}
 
