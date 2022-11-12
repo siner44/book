@@ -1,6 +1,7 @@
 package kr.com.book.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -63,19 +64,22 @@ public class BoardController {
 		return "board/list";
 
 	}
+	
+	// 게시판 조회
+		@RequestMapping(value = "/read", method = RequestMethod.GET)
+		public String read(Board b, @ModelAttribute("s") Search s, Model model) throws Exception {
+			logger.info("read");
 
-	// 글 조회
-	@RequestMapping(value = "/read", method = RequestMethod.GET)
-	public String read(Board b, Model model, @ModelAttribute("s") Search s) throws Exception {
-		logger.info("read");
+			model.addAttribute("read", boardService.read(b.getBno()));
+			model.addAttribute("s", s);
 
-		model.addAttribute("read", boardService.read(b.getBno()));
-		model.addAttribute("s", s);
-		
-		List<Reply> replyList = replyService.readReply(b.getBno());
-		
-		return "board/read";
-	}
+			List<Reply> replyList = replyService.readReply(b.getBno());
+			model.addAttribute("replyList", replyList);
+
+			List<Map<String, Object>> fileList = boardService.selectFileList(b.getBno());
+			model.addAttribute("file", fileList);
+			return "board/read";
+		}
 
 	// 게시판 수정뷰
 	@RequestMapping(value = "/updateView", method = RequestMethod.GET)

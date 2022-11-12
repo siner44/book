@@ -82,11 +82,21 @@
 			editname,
 			filesize
 		)VALUES(
-			#{BNO},
+			#{bno},
 			#{filename},
 			#{editname},
 			#{filesize}
 		)
     </insert>
+    
+    <select id="selectFileList" parameterType="int" resultType="hashMap">
+	SELECT board_file,
+		   filename,
+		   ROUND(filesize/1024,1) AS filesize
+	  FROM board_file
+	 WHERE bno = #{bno}
+	   AND del = 'N'
+</select>
+    
 	
 </mapper>

@@ -21,4 +21,7 @@ public interface BoardDAO {
 	
 	public void insertFile(Map<String, Object> map);
 	
+	public List<Map<String, Object>> selectFileList(int bno);
+	
+	
 }

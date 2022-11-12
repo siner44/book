@@ -58,9 +58,14 @@ public class BoardService {
 		dao.update(b);
 	}
 
-	// 게시물 삭제
 	public void delete(int bno) {
 		dao = template.getMapper(BoardDAO.class);
 		dao.delete(bno);
 	}
+	
+	public List<Map<String, Object>> selectFileList(int bno){
+		dao = template.getMapper(BoardDAO.class);
+		return dao.selectFileList(bno);
+	}
+	
 }

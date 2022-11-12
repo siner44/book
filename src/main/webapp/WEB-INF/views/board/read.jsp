@@ -108,7 +108,14 @@
 					<label for="regdate" class="col-sm-2 control-label">작성날짜</label>
 					<fmt:formatDate value="${read.regdate}" pattern="yyyy-MM-dd" />	
 				</div>
-				
+				<hr>
+				<span>파일 목록</span>
+				<div class="form-group" style="border: 1px solid #dbdbdb;">
+					<c:forEach var="file" items="${file}">
+						<a href="#" onclick="fn_fileDown('${file.fno}'); return false;">${file.filename}</a>(${file.filesize}kb)<br>
+					</c:forEach>
+				</div>
+				<hr>
 				<div>
 					<button type="button" class="update_btn btn btn-warning">수정</button>
 					<button type="button" class="delete_btn btn btn-danger">삭제</button>
