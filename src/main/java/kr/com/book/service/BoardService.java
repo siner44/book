@@ -68,4 +68,9 @@ public class BoardService {
 		return dao.selectFileList(bno);
 	}
 	
+	public Map<String, Object> selectFileInfo(Map<String, Object> map){
+		dao = template.getMapper(BoardDAO.class);
+		return dao.selectFileinfo(map);
+	}
+	
 }

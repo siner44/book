@@ -68,6 +68,13 @@
 					+ "&rno="+$(this).attr("data-rno");
 			});
 		})
+		
+		function fn_fileDown(fileNo){
+			var formObj = $("form[name='readForm']");
+			$("#fno").attr("value", fileNo);
+			formObj.attr("action", "/board/fileDown");
+			formObj.submit();
+		}
 	</script>
 	
 	<body>
@@ -90,6 +97,7 @@
   					<input type="hidden" id="perPageNum" name="perPageNum" value="${s.perPageNum}"> 
   					<input type="hidden" id="searchType" name="searchType" value="${s.searchType}"> 
   					<input type="hidden" id="keyword" name="keyword" value="${s.keyword}"> 
+					<input type="hidden" id="fno" name="fno" value=""> 
 				</form>
 				
 				<div class="form-group">

@@ -90,13 +90,20 @@
     </insert>
     
     <select id="selectFileList" parameterType="int" resultType="hashMap">
-	SELECT board_file,
+	SELECT fno,
 		   filename,
 		   ROUND(filesize/1024,1) AS filesize
 	  FROM board_file
 	 WHERE bno = #{bno}
 	   AND del = 'N'
-</select>
+	</select>
     
+    <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+	SELECT 
+		editname,
+		filename
+	FROM board_file
+	WHERE fno = #{fno}
+	</select>
 	
 </mapper>
