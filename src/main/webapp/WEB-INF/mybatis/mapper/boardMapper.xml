@@ -96,6 +96,7 @@
 	  FROM board_file
 	 WHERE bno = #{bno}
 	   AND del = 'N'
+	   ORDER BY fno ASC
 	</select>
     
     <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">

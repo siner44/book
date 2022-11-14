@@ -53,9 +53,22 @@ public class BoardService {
 		return dao.read(bno);
 	}
 
-	public void update(Board b) {
+	public void update(Board b, String[] files, String[] fileNames, MultipartHttpServletRequest mpRequest) throws Exception {
 		dao = template.getMapper(BoardDAO.class);
 		dao.update(b);
+		
+		List<Map<String, Object>> list = fileUtils.parseUpdateFileInfo(b, files, fileNames, mpRequest);
+		Map<String, Object> tempMap = null;
+		int size = list.size();
+		for(int i = 0; i<size; i++) {
+			tempMap = list.get(i);
+			if(tempMap.get("IS_NEW").equals("Y")) {
+				dao.insertFile(tempMap);
+			}else {
+				dao.updateFile(tempMap);
+			}
+		}
+		
 	}
 
 	public void delete(int bno) {

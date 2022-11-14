@@ -25,4 +25,6 @@ public interface BoardDAO {
 	
 	public Map<String, Object> selectFileinfo(Map<String, Object> map);
 	
+	public void updateFile(Map<String, Object> map);
+	
 }

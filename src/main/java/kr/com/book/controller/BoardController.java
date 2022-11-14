@@ -93,15 +93,19 @@ public class BoardController {
 		model.addAttribute("update", boardService.read(b.getBno()));
 		model.addAttribute("s", s);
 
+		List<Map<String, Object>> fileList = boardService.selectFileList(b.getBno());
+		model.addAttribute("file", fileList);
 		return "board/updateView";
 	}
 
 	// 게시판 수정
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
-	public String update(Board b, @ModelAttribute("s") Search s, RedirectAttributes rttr) throws Exception {
+	public String update(Board b, @ModelAttribute("s") Search s, RedirectAttributes rttr, @RequestParam(value="fileNoDel[]") String[] files,
+			 @RequestParam(value="fileNameDel[]") String[] fileNames,
+			 MultipartHttpServletRequest mpRequest) throws Exception {
 		logger.info("update");
 
-		boardService.update(b);
+		boardService.update(b, files, fileNames, mpRequest);
 		
 		rttr.addAttribute("page", s.getPage());
 		rttr.addAttribute("perPageNum", s.getPerPageNum());

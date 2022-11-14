@@ -46,6 +46,26 @@
 			}
 		}
 		
+		function fn_addFile(){
+			var fileIndex = 1;
+			$(".fileAdd_btn").on("click", function(){
+				$("#fileIndex").append("<div><input type='file' style='float:left;' name='file_"+(fileIndex++)+"'>"+"</button>"+"<button type='button' style='float:right;' id='fileDelBtn'>"+"삭제"+"</button></div>");
+			});
+			$(document).on("click","#fileDelBtn", function(){
+				$(this).parent().remove();
+				
+			});
+		}
+ 		var fileNoArry = new Array();
+ 		var fileNameArry = new Array();
+ 		function fn_del(value, name){
+ 			
+ 			fileNoArry.push(value);
+ 			fileNameArry.push(name);
+ 			$("#fileNoDel").attr("value", fileNoArry);
+ 			$("#fileNameDel").attr("value", fileNameArry);
+ 		}
+		
 	</script>
 	<body>
 	
@@ -63,6 +83,13 @@
 			<section id="container">
 				<form name="updateForm" role="form" method="post" action="/board/update">
 					<input type="hidden" name="bno" value="${update.bno}" readonly="readonly"/>
+					<input type="hidden" id="page" name="page" value="${s.page}"> 
+					<input type="hidden" id="perPageNum" name="perPageNum" value="${s.perPageNum}"> 
+					<input type="hidden" id="searchType" name="searchType" value="${s.searchType}"> 
+					<input type="hidden" id="keyword" name="keyword" value="${s.keyword}"> 
+					<input type="hidden" id="fileNoDel" name="fileNoDel[]" value=""> 
+					<input type="hidden" id="fileNameDel" name="fileNameDel[]" value=""> 
+					
 					<table>
 						<tbody>
 							<tr>
@@ -85,12 +112,24 @@
 									<label for="regdate">작성날짜</label>
 									<fmt:formatDate value="${update.regdate}" pattern="yyyy-MM-dd"/>					
 								</td>
-							</tr>		
+							</tr>
+							<tr>
+								<td id="fileIndex">
+									<c:forEach var="file" items="${file}" varStatus="var">
+									<div>
+										<input type="hidden" id="fno" name="fno_${var.index}" value="${file.fno}">
+										<input type="hidden" id="FILE_NAME" name="FILE_NAME" value="fno_${var.index}">
+										<a href="#" id="fileName" onclick="return false;">${file.filename}</a>(${file.filesize}kb)
+										<button id="fileDel" onclick="fn_del('${file.fno}','FILE_NO_${var.index}');" type="button">삭제</button><br>
+									</div>
+									</c:forEach>
+								</td>	
 						</tbody>			
 					</table>
 					<div>
 						<button type="submit" class="update_btn">저장</button>
 						<button type="submit" class="cancel_btn">취소</button>
+						<button type="button" class="fileAdd_btn">파일추가</button>
 					</div>
 				</form>
 			</section>
