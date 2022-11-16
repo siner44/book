@@ -27,4 +27,6 @@ public interface BoardDAO {
 	
 	public void updateFile(Map<String, Object> map);
 	
+	public void boardCnt(int bno);
+	
 }

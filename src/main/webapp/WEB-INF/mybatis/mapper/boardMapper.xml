@@ -107,4 +107,10 @@
 	WHERE fno = #{fno}
 	</select>
 	
+	<update id="boardCnt" parameterType="int">
+    	UPDATE board SET
+    	viewcnt = viewcnt+1
+    	WHERE bno = #{bno}
+    </update>
+	
 </mapper>

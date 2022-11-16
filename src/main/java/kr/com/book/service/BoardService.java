@@ -9,6 +9,8 @@ import javax.inject.Inject;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.com.book.dao.BoardDAO;
@@ -47,9 +49,11 @@ public class BoardService {
 		dao = template.getMapper(BoardDAO.class);
 		return dao.listCount(s);
 	}
-
+	
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	public Board read(int bno) {
 		dao = template.getMapper(BoardDAO.class);
+			dao.boardCnt(bno);
 		return dao.read(bno);
 	}
 
